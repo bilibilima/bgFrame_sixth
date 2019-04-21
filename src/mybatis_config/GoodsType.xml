@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.GoodsTypeDao">
+	<resultMap type="GoodsType" id="GoodsTypeMap">
+		<id property="typeno" column="typeno"/>
+		<result property="type" column="type"/>
+		<result property="createtime" column="createtime"/>
+
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="GoodsTypeMap" parameterType="java.util.Map">
+		select * from goods_type LIMIT #{startPage},#{endPage}
+	</select>
+	
+	<select id="findList" resultType="GoodsType">
+		SELECT * FROM goods_type
+	</select>
+	
+	
+	
+	<select id="countGoodsType" resultType="java.lang.Integer">
+		select count(1) from goods_type
+	</select>
+	
+	
+	<insert id="addGoodsType" parameterType="GoodsType">
+		INSERT INTO goods_type (type, createtime) VALUES (#{type},#{createtime})
+	</insert>
+	
+	
+	<update id="updateGoodsType" parameterType="GoodsType">
+		UPDATE goods_type SET type = #{type},createtime =#{createtime} WHERE typeno =#{typeno}
+	</update>
+	
+	
+	<delete id="deleteGoodsType" parameterType="java.lang.Integer">
+		DELETE FROM goods_type WHERE typeno = #{typeno}
+	</delete>
+</mapper>

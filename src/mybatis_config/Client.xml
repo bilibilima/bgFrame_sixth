@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.ClientDao">
+	<resultMap type="Client" id="ClientMap">
+		<id property="clientno" column="clientno"/>
+		<result property="client" column="client"/>
+		<result property="caddress" column="caddress"/>
+		<result property="cemail" column="cemail"/>
+		<result property="cphone" column="cphone"/>
+	
+		
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="ClientMap" parameterType="java.util.Map">
+		select * from client LIMIT #{startPage},#{endPage}
+	</select>
+	
+	
+	<select id="countClient" resultType="java.lang.Integer">
+		select count(1) from client
+	</select>
+	
+	
+	<insert id="addClient" parameterType="Client">
+		INSERT INTO client (client, caddress,cemail,cphone) VALUES (#{client},#{caddress},#{cemail},#{cphone})
+	</insert>
+	
+	
+	<update id="updateClient" parameterType="Client">
+		UPDATE client SET client = #{client},caddress =#{caddress},cemail =#{cemail},cphone =#{cphone} 
+		WHERE clientno =#{clientno}
+	</update>
+	
+	
+	<delete id="deleteClient" parameterType="java.lang.Integer">
+		DELETE FROM client WHERE clientno = #{clientno}
+	</delete>
+</mapper>

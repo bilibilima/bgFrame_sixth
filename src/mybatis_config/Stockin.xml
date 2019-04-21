@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.StockinDao">
+	<resultMap type="Stockin" id="StockinMap">
+	    
+	    
+		<id property="stockinno" column="stockinno"/>
+		<result property="storageno" column="storageno"/>
+		<result property="goodsno" column="goodsno"/>
+		<result property="siquantity" column="siquantity"/>
+		<result property="sidate" column="sidate"/>
+		<result property="handler" column="handler"/>
+		<result property="siremark" column="siremark"/>
+		
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="StockinMap" parameterType="java.util.Map">
+		select * from stock_in LIMIT #{startPage},#{endPage}
+	</select>
+	
+	<select id="countStockin" resultType="java.lang.Integer">
+		select count(1) from stock_in
+	</select>
+	
+	
+	<insert id="addStockin" parameterType="Stockin">
+		INSERT INTO stock_in (storageno,goodsno, siquantity,sidate,handler,siremark) 
+		VALUES (#{storageno},#{goodsno},#{siquantity},#{sidate},#{handler},#{siremark})
+	</insert>
+	
+	
+	<update id="updateStockin" parameterType="Stockin">
+		UPDATE stock_in SET storageno = #{storageno},goodsno = #{goodsno},siquantity =#{siquantity},sidate =#{sidate},handler =#{handler},siremark =#{siremark}
+		WHERE stockinno =#{stockinno}
+	</update>
+	
+	
+	<delete id="deleteStockin" parameterType="java.lang.Integer">
+		DELETE FROM stock_in WHERE stockinno = #{stockinno}
+	</delete>
+</mapper>

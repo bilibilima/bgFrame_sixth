@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.StorageDao">
+	<resultMap type="Storage" id="StoragetMap">
+		<id property="storageno" column="storageno"/>
+		<result property="storagename" column="storagname"/>
+		<result property="storageaddress" column="storagaddress"/>
+		<result property="capacity" column="capacity"/>
+		<result property="cordon" column="cordon"/>
+		<result property="currentstorage" column="currentstorage"/>
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="StoragetMap" parameterType="java.util.Map">
+		select * from storage LIMIT #{startPage},#{endPage}
+	</select>
+	
+	
+	<select id="countStorage" resultType="java.lang.Integer">
+		select count(1) from storage
+	</select>
+	
+	
+	<insert id="addStorage" parameterType="Storage">
+		INSERT INTO storage (storagename, storageaddress, capacity, cordon, currentstorage) 
+		VALUES (#{storagename},#{storageaddress},#{capacity},#{cordon},#{currentstorage})
+	</insert>
+	
+	
+	<update id="updateStorage" parameterType="Storage">
+		UPDATE storage SET storagename = #{storagename},storageaddress =#{storageaddress},capacity =#{capacity},cordon =#{cordon},currentstorage =#{currentstorage} 
+		WHERE storageno =#{storageno}
+	</update>
+	
+	
+	<delete id="deleteStorage" parameterType="java.lang.Integer">
+		DELETE FROM storage WHERE storageno = #{storageno}
+	</delete>
+</mapper>

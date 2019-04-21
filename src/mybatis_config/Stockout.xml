@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.StockoutDao">
+	<resultMap type="Stockout" id="StockoutMap">
+
+		<id property="stockoutno" column="stockoutno"/>
+		<result property="storageno" column="storageno"/>
+		<result property="goodsno" column="goodsno"/>
+		<result property="soquantity" column="soquantity"/>
+		<result property="sodate" column="sodate"/>
+		<result property="handler" column="handler"/>
+		<result property="soremark" column="soremark"/>
+		
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="StockoutMap" parameterType="java.util.Map">
+		select * from stock_out LIMIT #{startPage},#{endPage}
+	</select>
+	
+	<select id="countStockout" resultType="java.lang.Integer">
+		select count(1) from stock_out
+	</select>
+	
+	
+	<insert id="addStockout" parameterType="Stockout">
+		INSERT INTO stock_out (storageno,goodsno, soquantity,sodate,handler,soremark) 
+		VALUES (#{storageno},#{goodsno},#{soquantity},#{sodate},#{handler},#{soremark})
+	</insert>
+	
+	
+	<update id="updateStockout" parameterType="Stockout">
+		UPDATE stock_out SET storageno = #{storageno},goodsno = #{goodsno},soquantity =#{soquantity},sodate =#{sodate},handler =#{handler},soremark =#{soremark}
+		WHERE stockoutno =#{stockoutno}
+	</update>
+	
+	
+	<delete id="deleteStockout" parameterType="java.lang.Integer">
+		DELETE FROM stock_out WHERE stockoutno = #{stockoutno}
+	</delete>
+</mapper>

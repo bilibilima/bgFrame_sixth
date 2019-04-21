@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.ProviderDao">
+	<resultMap type="Provider" id="ProviderMap">
+	    
+	    
+		<id property="providerno" column="providerno"/>
+		<result property="provider" column="provider"/>
+		<result property="paddress" column="paddress"/>
+		<result property="plinkman" column="plinkman"/>
+		<result property="pemail" column="pemail"/>
+		<result property="pphone" column="pphone"/>
+	
+		
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="ProviderMap" parameterType="java.util.Map">
+		select * from provider LIMIT #{startPage},#{endPage}
+	</select>
+	
+	<select id="findList" resultType="Provider">
+		SELECT * FROM provider
+	</select>	
+
+	
+	
+	<select id="countProvider" resultType="java.lang.Integer">
+		select count(1) from provider
+	</select>
+	
+	
+	<insert id="addProvider" parameterType="Provider">
+		INSERT INTO provider (provider, paddress,plinkman,pemail,pphone) 
+		VALUES (#{provider},#{paddress},#{plinkman},#{pemail},#{pphone})
+	</insert>
+	
+	
+	<update id="updateProvider" parameterType="Provider">
+		UPDATE provider SET provider = #{provider},paddress =#{paddress},plinkman =#{plinkman},pemail =#{pemail},pphone =#{pphone} 
+		WHERE providerno =#{providerno}
+	</update>
+	
+	
+	<delete id="deleteProvider" parameterType="java.lang.Integer">
+		DELETE FROM provider WHERE providerno = #{providerno}
+	</delete>
+</mapper>

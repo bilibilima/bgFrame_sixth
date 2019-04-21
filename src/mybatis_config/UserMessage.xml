@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.dao.UserMessageDao">
+
+    
+    <!-- resultMap用于完成数据库查询结果与java实体类的关系映射 orm 对象关系数据库映射 -->
+	<resultMap type="UserMessage" id="UserMessageMap">
+		<id property="userNo" column="userNo"/>
+		<result property="userName" column="userName"/>
+		<result property="nickName" column="nickName"/>
+		<result property="password" column="password"/>
+		<result property="userEmail" column="userEmail"/>
+		<result property="userDate" column="userDate"/>
+	</resultMap>
+	
+	<!-- 查询 -->
+	<!-- <select id="findAll" resultMap="UserMessage" parameterType="java.util.Map"> -->
+	<select id="findAll" resultMap="UserMessageMap" parameterType="java.util.Map">
+	    <!-- mysql分页查询，select * form [table] LIMIT [start,end] -->
+		select * from user_message LIMIT #{startPage},#{endPage}
+	</select>
+	
+	<!-- 登录 -->
+	<select id="login" resultMap="UserMessageMap" parameterType="UserMessage">
+		select * from user_message WHERE userName = #{userName} AND password = #{password}
+	</select>
+	
+	
+	<!-- 统计 -->
+	<select id="countUserMessage" resultType="java.lang.Integer">
+		select count(*) from user_message
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="addUserMessage" parameterType="UserMessage">
+		INSERT INTO user_message (userName, nickName, password, userPhone,userEmail,userDate) 
+		VALUES (#{userName}, #{nickName},#{password},#{userPhone},#{userEmail},#{userDate})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="updateUserMessage" parameterType="UserMessage">
+		UPDATE user_message SET userName = #{userName},nickName =#{nickName},password =#{password},
+		userPhone =#{userPhone},userEmail =#{userEmail},userDate =#{userDate} WHERE userNo =#{userNo}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteUserMessage" parameterType="java.lang.Integer">
+		DELETE FROM user_message WHERE userNo = #{userNo}
+	</delete>
+</mapper>
